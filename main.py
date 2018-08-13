@@ -39,7 +39,7 @@ settings = {
         'psk': password,
     },
     'connection': {
-        'id': 'jordan',
+        'id': ssid,
         'type': '802-11-wireless',
         'uuid': str(uuid.uuid4())
     },
