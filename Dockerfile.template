@@ -1,0 +1,28 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:stretch-20180809
+
+ENV DBUS_SYSTEM_BUS_ADDRESS unix:path=/host/run/dbus/system_bus_socket
+
+ENV INITSYSTEM on
+
+RUN apt-get update \
+    && apt-get install -y \
+        build-essential \
+        libdbus-1-dev \
+        libglib2.0-dev \
+        python-dev \
+        python-pip \
+        python-setuptools \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --upgrade pip
+
+RUN pip install wheel
+
+RUN pip install python-networkmanager
+
+WORKDIR /usr/src/app
+
+COPY main.py .
+
+CMD ["python", "main.py"]
