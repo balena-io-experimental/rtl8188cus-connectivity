@@ -20,11 +20,17 @@ if not interface:
     print('WIFI_INTERFACE not exported')
     exit()
 
+
+for connection in NetworkManager.Settings.ListConnections():
+    if connection.GetSettings()['connection']['id'] == ssid:
+        print('Connection profile already defined. Exiting...')
+        exit()
+
 device = NetworkManager.NetworkManager.GetDeviceByIpIface(interface)
-print('Device:', device.object_path)
+print('Device: {}'.format(device.object_path))
 
 start_sleep = 15
-print('Sleeping for', start_sleep, 'seconds')
+print('Sleeping for {} seconds'.format(start_sleep))
 time.sleep(start_sleep)
 
 settings = {
@@ -53,7 +59,7 @@ settings = {
 
 connection = NetworkManager.Settings.AddConnection(settings)
 
-print('Connection added:', connection.object_path)
+print('Connection added: {}'.format(connection.object_path))
 
 add_sleep = 5
 print('Sleeping for', add_sleep, 'seconds')
@@ -61,10 +67,10 @@ time.sleep(add_sleep)
 
 active_connection = NetworkManager.NetworkManager.ActivateConnection(connection, device, '/')
 
-print('Active connection:', active_connection.object_path)
+print('Active connection: {}'.format(active_connection.object_path))
 
 activate_sleep = 20
 print('Sleeping for', activate_sleep, 'seconds')
 time.sleep(activate_sleep)
 
-print('State:', active_connection.State)
+print('State: {}'.format(active_connection.State))
