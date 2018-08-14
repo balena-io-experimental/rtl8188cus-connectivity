@@ -62,8 +62,14 @@ connection = NetworkManager.Settings.AddConnection(settings)
 
 print('Connection added: {}'.format(connection.object_path))
 
+try:
+    device.RequestScan({})
+    print('Scanning for networks...')
+except:
+    pass
+
 add_sleep = 5
-print('Sleeping for', add_sleep, 'seconds')
+print('Sleeping for {} seconds'.format(add_sleep))
 time.sleep(add_sleep)
 
 active_connection = NetworkManager.NetworkManager.ActivateConnection(connection, device, '/')
@@ -71,7 +77,7 @@ active_connection = NetworkManager.NetworkManager.ActivateConnection(connection,
 print('Active connection: {}'.format(active_connection.object_path))
 
 activate_sleep = 20
-print('Sleeping for', activate_sleep, 'seconds')
+print('Sleeping for {} seconds'.format(activate_sleep))
 time.sleep(activate_sleep)
 
 print('State: {}'.format(active_connection.State))
