@@ -47,7 +47,8 @@ settings = {
     'connection': {
         'id': ssid,
         'type': '802-11-wireless',
-        'uuid': str(uuid.uuid4())
+        'uuid': str(uuid.uuid4()),
+        'interface-name': interface,
     },
     'ipv4': {
         'method': 'auto'
